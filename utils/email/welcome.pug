@@ -1,0 +1,17 @@
+extends baseEmail.pug
+
+block content
+    p
+        b ¡Hola #{firstName}!
+    p Te damos la bienvenida a la plataforma IotDEX 🎉🙏
+    p Solo necesitas un paso mas, termina la creación de tu cuenta haciendo click en el siguiente boton
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+        tbody
+            tr
+                td(align='left')
+                    table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                        tbody
+                            tr
+                                td
+                                    a(href=`${url}`, target='_blank') Confirmar creación de cuenta
+    p Si tienes alguna duda no dudes en contactarnos
