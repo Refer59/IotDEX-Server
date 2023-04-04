@@ -88,7 +88,8 @@ userSchema.methods.createToken = function (message, res, expiresIn) {
         httpOnly: true,
         sameSite: 'none',
         secure: true
-    };
+    }
+    console.log(cookieOptions)
     this.password = undefined;
     this.__v = undefined;
     if (process.env.NODE_ENV === 'production')
