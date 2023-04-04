@@ -86,7 +86,8 @@ userSchema.methods.createToken = function (message, res, expiresIn) {
     const cookieOptions = {
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         httpOnly: true,
-        sameSite: 'none'
+        sameSite: 'none',
+        secure: true
     };
     this.password = undefined;
     this.__v = undefined;
