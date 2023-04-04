@@ -91,6 +91,8 @@ userSchema.methods.createToken = function (message, res, expiresIn) {
     this.__v = undefined;
     if (process.env.NODE_ENV === 'production')
         cookieOptions.secure = true;
+    else
+        cookieOptions.sameSite = 'none';
     res.cookie('jwt', token, cookieOptions);
     const sendObject = {
         status: 'Success',
