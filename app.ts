@@ -11,6 +11,7 @@ import hpp from 'hpp'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import toursRouter from './routes/tours.js'
+import brokerRouter from './routes/broker.js'
 
 const app = express()
 //Security HTTP Headers
@@ -53,6 +54,7 @@ app.use(cors({
 app.options('*', cors())
 app.use('/api/v1/tours', toursRouter())
 app.use('/api/v1/users', usersRouter())
+app.use('/api/v1/broker', brokerRouter())
 
 //Error handler para ruta no definidas
 app.all('*', (req, res, next) => {
