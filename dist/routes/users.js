@@ -1,8 +1,8 @@
 import express from "express";
-import { passwordConfirmation, signIn, forgotPassword, resetPassword, protectRoute, updatePassword, signUpConfirmation, getAuthDataByAuth, checkUserCreationToken, checkUserResetToken, signOut } from "../controllers/auth.js";
-import userController, { createUser, deleteAuthUser, deleteUser, getAllUsers, updateAuthUserPassword } from "../controllers/users.js";
+import { passwordConfirmation, signIn, forgotPassword, resetPassword, protectRoute, updatePassword, signUpConfirmation, getAuthDataByAuth, checkUserCreationToken, checkUserResetToken, signOut, actionPasswordConfirmation } from "../controllers/auth.js";
+import userController, { createUser, deleteAuthUser, deleteUser, getAllUsers, updateAuthUserPassword, updateUser } from "../controllers/users.js";
 const usersRouter = () => {
-    const { getUser, updateUser } = userController();
+    const { getUser } = userController();
     const usersRouter = express.Router();
     //Deprecado
     //usersRouter.post('/signUp', passwordConfirmation, signUp)
@@ -12,8 +12,9 @@ const usersRouter = () => {
     */
     usersRouter.get('/checkUserCreationToken/:token', checkUserCreationToken);
     usersRouter.patch('/signUp/:userId', passwordConfirmation, signUpConfirmation);
-    //
+    //Manejo de sesion
     usersRouter.post('/signIn', signIn);
+    usersRouter.get('/checkUserConfirmation/:candidatePassword', protectRoute([]), actionPasswordConfirmation);
     usersRouter.get('/getAuthDataByToken', protectRoute([]), getAuthDataByAuth);
     usersRouter.get('/signOut', protectRoute([]), signOut);
     //Contraseña olvidada
@@ -30,7 +31,7 @@ const usersRouter = () => {
         .post(protectRoute(['ADMIN']), createUser);
     usersRouter.route('/:id')
         .get(getUser)
-        .patch(updateUser)
+        .patch(protectRoute(['ADMIN']), updateUser)
         .delete(protectRoute(['ADMIN']), deleteUser);
     return usersRouter;
 };

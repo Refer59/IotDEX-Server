@@ -26,6 +26,14 @@ const userSchema = new mongoose.Schema({
         enum: ['INDEFINIDO', 'CONDUCTOR', 'MECANICO', 'ELECTRICO', 'ADMIN', 'SUPER-ADMIN'],
         default: 'INDEFINIDO'
     },
+    workingDays: {
+        type: [Number],
+        default: undefined
+    },
+    workingTime: {
+        from: String,
+        to: String
+    },
     password: {
         type: String,
         //required: [true, 'Ingrese una contraseña'],
@@ -85,11 +93,8 @@ userSchema.methods.createToken = function (message, res, expiresIn) {
     const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, { expiresIn: expiresIn || process.env.JWT_EXPIRES_IN });
     const cookieOptions = {
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true
-    }
-    console.log(cookieOptions)
+        httpOnly: true
+    };
     this.password = undefined;
     this.__v = undefined;
     if (process.env.NODE_ENV === 'production')

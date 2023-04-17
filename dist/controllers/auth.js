@@ -91,13 +91,23 @@ export const protectRoute = (onlyForRoles) => catchAsync(async (req, res, next, 
         return next(new AppError('Usuario no encontrado, se requiere de un usuario existente para acceder a esta ruta', 401));
     // 3.2 ) Check if the user has authorization to user this route <------------
     if (dataForCallback && dataForCallback.length > 0 && !dataForCallback.includes(user.role))
-        return next(new AppError('Ruta no autorizada', 401));
+        return next(new AppError('Acción no autorizada', 401));
     // 4) Check if user changed password after the token was issued (expedido, publicado, enviado)
     if (user.userChangedPassword(decoded.iat))
         return next(new AppError('Recientemente se cambio la contraseña, vuelva a iniciar sesion', 401));
     req.body.user = user;
     next();
 }, onlyForRoles);
+export const actionPasswordConfirmation = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.body.user._id).select('+password');
+    const isPasswordCorrect = await user.correctPassword(req.params.candidatePassword, user.password);
+    if (!isPasswordCorrect)
+        return next(new AppError('Contraseña incorrecta', 400));
+    res.status(200).json({
+        status: 'Sucess',
+        message: 'Contraseña correcta'
+    });
+});
 //Middleware para la confirmación de contraseña
 export const passwordConfirmation = catchAsync(async (req, res, next) => {
     if (!req.body.passwordConfirm && !req.body.password)
