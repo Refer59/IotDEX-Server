@@ -11,6 +11,8 @@ type userSchemaTypes = {
     photo: string
     phone: number
     role: string
+    workingDays: number[]
+    workingTime: { from: string, to: string }
     password: string
     passwordChangeDate: Date
     passwordResetToken: string
@@ -47,7 +49,15 @@ const userSchema = new mongoose.Schema<userSchemaTypes>({
         enum: ['INDEFINIDO', 'CONDUCTOR', 'MECANICO', 'ELECTRICO', 'ADMIN', 'SUPER-ADMIN'],
         default: 'INDEFINIDO'
     },
-    password: {
+    workingDays: {
+        type: [Number],
+        default: undefined
+    },
+    workingTime: {
+        from: String,
+        to: String
+    }
+    , password: {
         type: String,
         //required: [true, 'Ingrese una contraseña'],
         minLength: [8, 'La contraseña debe tener al menos 8 caracteres'],

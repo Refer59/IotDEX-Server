@@ -72,13 +72,13 @@ export const signIn = catchAsync(async (req: Request, res: Response, next: NextF
     user.createToken('Inicio de sesion exitosa', res)
 })
 
-export const signOut = catchAsync(async (req: Request, res: Response, next: NextFunction ) => {
+export const signOut = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const cookieOptions: any = {
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         httpOnly: true
     }
     if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
-    
+
     res.clearCookie('jwt', cookieOptions)
     res.status(200).json({
         status: 'Sucess',
@@ -110,7 +110,7 @@ export const protectRoute = (onlyForRoles: string[]) => catchAsync(async (req: R
 
     // 3.2 ) Check if the user has authorization to user this route <------------
     if (dataForCallback && dataForCallback.length > 0 && !dataForCallback.includes(user.role))
-        return next(new AppError('Ruta no autorizada', 401))
+        return next(new AppError('Acción no autorizada', 401))
 
     // 4) Check if user changed password after the token was issued (expedido, publicado, enviado)
     if (user.userChangedPassword(decoded.iat))
@@ -119,6 +119,19 @@ export const protectRoute = (onlyForRoles: string[]) => catchAsync(async (req: R
     req.body.user = user
     next()
 }, onlyForRoles)
+
+export const actionPasswordConfirmation = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findById(req.body.user._id).select('+password')
+    const isPasswordCorrect = await user.correctPassword(req.params.candidatePassword, user.password)
+
+    if (!isPasswordCorrect)
+        return next(new AppError('Contraseña incorrecta', 400))
+
+    res.status(200).json({
+        status: 'Sucess',
+        message: 'Contraseña correcta'
+    })
+})
 
 //Middleware para la confirmación de contraseña
 export const passwordConfirmation = catchAsync(async (req: Request, res: Response, next: NextFunction) => {

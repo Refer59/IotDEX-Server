@@ -10,6 +10,7 @@ import helmet from 'helmet'
 import hpp from 'hpp'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import toursRouter from './routes/tours.js'
 
 const app = express()
 //Security HTTP Headers
@@ -50,6 +51,7 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }))
 app.options('*', cors())
+app.use('/api/v1/tours', toursRouter())
 app.use('/api/v1/users', usersRouter())
 
 //Error handler para ruta no definidas

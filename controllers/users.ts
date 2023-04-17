@@ -14,16 +14,8 @@ const usersController = () => {
         })
     }
 
-    const updateUser = (req: Request, res: Response) => {
-        res.status(500).json({
-            status: 'Error',
-            message: 'Esta ruta aun no esta definida'
-        })
-    }
-
     return {
         getUser,
-        updateUser,
     }
 }
 
@@ -33,7 +25,7 @@ export const getAllUsers = catchAsync(async (req: Request, res: Response) => {
         .limitFields()
         .sort()
         .paginar()
-    const users = await userFeatures.query
+    let users = await userFeatures.query
 
     res.status(200).json({
         status: 'Success',
@@ -63,6 +55,18 @@ export const createUser = catchAsync(async (req: Request, res: Response) => {
             message: `Creación de cuenta cancelada, no se pudo enviar el correo de confirmación a ${req.body.email}`
         })
     }
+})
+
+export const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true, })
+
+    if (!user)
+        return next(new AppError('No se encontro el usuario que se desea editar', 404))
+
+    res.status(200).json({
+        status: 'Sucess',
+        message: `Usuario ${user.name} editado`
+    })
 })
 
 export const deleteUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {

@@ -1,1 +1,4 @@
 /node_modules
+/controllers/tours.ts
+/model/tourModel.ts
+/routes/tours.ts
