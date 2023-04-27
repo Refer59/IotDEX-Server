@@ -1,5 +1,5 @@
 import AppError from "../utils/appError.js";
-const handleCastErrorDB = (error) => new AppError(`El valor ${error.path} es invalido: ${error.value}`, 400);
+const handleCastErrorDB = (error) => new AppError(`El tipo del valor ${error.path} es invalido: ${error.value}`, 400);
 const handleDuplicatedFieldDB = (error) => {
     const value = error.errmsg.match(/(["'])(\\?.)*?\1/)[0];
     return new AppError(`Campo repetido con el valor ${value}, Por favor elija uno diferente`, 400);

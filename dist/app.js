@@ -12,6 +12,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import toursRouter from './routes/tours.js';
 import brokerRouter from './routes/broker.js';
+import medicionesRouter from './routes/medicion.js';
+import devicesRouter from './routes/devices.js';
 const app = express();
 //Security HTTP Headers
 app.use(helmet());
@@ -50,6 +52,8 @@ app.options('*', cors());
 app.use('/api/v1/tours', toursRouter());
 app.use('/api/v1/users', usersRouter());
 app.use('/api/v1/broker', brokerRouter());
+app.use('/api/v1/mediciones', medicionesRouter());
+app.use('/api/v1/devices', devicesRouter());
 //Error handler para ruta no definidas
 app.all('*', (req, res, next) => {
     next(new AppError(`Ruta (${req.originalUrl}) no encontrada`, 404));

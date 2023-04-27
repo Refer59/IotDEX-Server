@@ -1,17 +1,4 @@
-import mongoose, { Schema, SchemaType } from "mongoose"
-import Types from 'mongoose'
-
-/*
-    {
-        dispositivo: 'Particle-Boron2',
-        id: 'e00fce6868b49d25b541c0fb',
-        MAC: 'E9:B5:20:7D:80:A5',
-        sensor: 'P TPROBE 0003DB',
-        temperatura: 25.939999,
-        ident: 'Temperatura',
-        timestamp: 1681839386.213977
-    }
-*/
+import mongoose from "mongoose"
 
 type SchemaTypes = {
     tipoMedicion: string
@@ -20,34 +7,46 @@ type SchemaTypes = {
     valor: any
     fecha: Date
     MAC: string
+    sensorID: string,
 }
+
+/*
+type SchemaTypes = {
+    MAC: string
+    dispositivo: string
+    estadoAlerta: number
+    timestamp: number
+    sensor: number
+    tipoMedicion: string
+    unidades: string
+    valor: any
+}
+*/
 
 const medicionesSchema = new mongoose.Schema<SchemaTypes>({
     tipoMedicion: {
         type: String,
         lowercase: true,
-        require: true
+        required: [true, 'Se le debe establecer el tipo de medición al cual corresponde']
     },
     id: {
         type: String,
-        require: true
+        required: [true, 'La medición no posee un ID de dispositivo el cual realizo la medición']
     },
     sensor: {
         type: Number,
-        require: true
+        required: [true, 'La medición debe tener el numero de referencia del sensor que lo senso']
     },
     valor: {
         type: {},
-        require: true
+        required: [true, 'La medición debe tener un valor']
     },
     fechaHora: {
         type: Date,
-        require: true
+        required: [true, 'La medición debe tener la fecha y hora en que fue realizada']
     },
-    MAC: {
-        type: String,
-        required: true
-    }
+    MAC: String,
+    sensorID: String,
 })
 
 const Mediciones = mongoose.model('Mediciones', medicionesSchema)
