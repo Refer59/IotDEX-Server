@@ -4,7 +4,7 @@ export const streamData = catchAsync(async (req, res, next) => {
     const streamData = req.body;
     if (streamData && streamData.length > 0) {
         console.log(req.body);
-        await Mediciones.create(req.body);
+        await Mediciones.create({ ...req.body, sensorID: req.body.sensorID || req.body.MAC });
     }
     res.status(200).json({
         status: 'Sucess',
