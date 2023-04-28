@@ -29,7 +29,7 @@ const medicionesSchema = new mongoose.Schema({
         type: {},
         required: [true, 'La medición debe tener un valor']
     },
-    timestamp: {
+    fechaHora: {
         type: Date,
         required: [true, 'La medición debe tener la fecha y hora en que fue realizada']
     },

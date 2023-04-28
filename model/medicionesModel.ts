@@ -7,7 +7,7 @@ type SchemaTypes = {
     id: string
     sensor: number
     valor: any
-    timestamp: Date
+    fechaHora: Date
     sensorID: string,
 }
 
@@ -42,7 +42,7 @@ const medicionesSchema = new mongoose.Schema<SchemaTypes>({
         type: {},
         required: [true, 'La medición debe tener un valor']
     },
-    timestamp: {
+    fechaHora: {
         type: Date,
         required: [true, 'La medición debe tener la fecha y hora en que fue realizada']
     },
