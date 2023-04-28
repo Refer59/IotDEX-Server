@@ -12,11 +12,16 @@ export const streamData = catchAsync(async (req: Request, res: Response, next: N
     const streamData: jsonDataType[] = req.body
 
     if (streamData && streamData.length > 0) {
-        console.log(req.body)
-        await Mediciones.create(req.body)
-    }
+        streamData.forEach(async medicion => {
+            const resultado = await Mediciones.create({ ...medicion, sensorID: medicion.sensorID || medicion.MAC })
 
-    res.status(200).json({
-        status: 'Sucess',
-    })
+            res.status(200).json({
+                status: 'Sucess',
+                medicion: resultado
+            })
+        })
+    } else
+        res.status(400).json({
+            status: 'No se guardo nada',
+        })
 })
