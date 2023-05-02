@@ -14,12 +14,19 @@ export const streamData = catchAsync(async (req: Request, res: Response, next: N
 
     if (streamData && streamData.length > 0) {
         streamData.forEach(async medicion => {
-            const resultado = await Mediciones.create({ ...medicion, sensorID: medicion.sensorID || medicion.MAC })
+            try {
+                const resultado = await Mediciones.create({ ...medicion, sensorID: medicion.sensorID || medicion.MAC })
 
-            res.status(200).json({
-                status: 'Sucess',
-                medicion: resultado
-            })
+                res.status(200).json({
+                    status: 'Sucess',
+                    medicion: resultado
+                })
+            } catch (error: any) {
+                console.error(error)
+                res.status(200).json({
+                    status: 'No se guardo nada',
+                })
+            }
         })
     } else
         res.status(400).json({
