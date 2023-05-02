@@ -35,10 +35,10 @@ export const generateRandomData = catchAsync(async (req: Request, res: Response,
 
     let mediciones = []
     const sensorID = req.body.MAC || req.body.sensorID
-    let fechaHora: Date = new Date(req.body.fechaHora)
+    let fechaHora: Date = new Date()
     for (let index = 0; index < cantidad; index++) {
         fechaHora = new Date(fechaHora.getTime() + (1000 * 10))
-        mediciones.push(await Mediciones.create({ ...req.body, fechaHora, sensorID, valor: Math.random() * (max - min) + min }))
+        mediciones.push(await Mediciones.create({ ...req.body, fechaHora, sensorID, valor: Number.parseFloat((Math.random() * (max - min) + min).toFixed(2)), generado: true }))
     }
 
     res.status(200).json({

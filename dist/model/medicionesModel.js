@@ -36,7 +36,8 @@ const medicionesSchema = new mongoose.Schema({
     sensorID: {
         type: String,
         required: [true, 'El sensor de la medición debe tener un ID']
-    }
+    },
+    generado: Boolean
 });
 const Mediciones = mongoose.model('Mediciones', medicionesSchema);
 export default Mediciones;

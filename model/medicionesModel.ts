@@ -8,9 +8,9 @@ type SchemaTypes = {
     sensor: number
     valor: any
     fechaHora: Date
-    sensorID: string,
+    sensorID: string
+    generado: boolean
 }
-
 
 /*
    Invalida entrada de datos: La medición debe tener la fecha y hora en que fue realizada.
@@ -49,7 +49,8 @@ const medicionesSchema = new mongoose.Schema<SchemaTypes>({
     sensorID: {
         type: String,
         required: [true, 'El sensor de la medición debe tener un ID']
-    }
+    },
+    generado: Boolean
 })
 
 const Mediciones = mongoose.model('Mediciones', medicionesSchema)
