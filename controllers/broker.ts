@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, RequestHandler } from "express"
 import catchAsync from "../utils/catchAsync.js"
 import Mediciones from "../model/medicionesModel.js"
+import AppError from "../utils/appError.js"
 
 type jsonDataType = {
     id: string
