@@ -3,9 +3,12 @@ import catchAsync from "../utils/catchAsync.js"
 import Mediciones from "../model/medicionesModel.js"
 
 export const streamData = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    //Flesbi manda el buffer de jsons en un array
     if (Array.isArray(req.body) && req.body.length > 0) {
-        console.log(req.body)
-        await Mediciones.create(req.body)
+        let jsonBuffer = req.body
+        console.log(jsonBuffer)
+        jsonBuffer = jsonBuffer.map((objeto: any) => ({ ...objeto, sensorID: objeto.MAC || objeto.sensorID }))
+        await Mediciones.create(jsonBuffer)
 
         res.status(200).json({
             status: 'Sucess'

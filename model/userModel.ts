@@ -129,12 +129,14 @@ userSchema.methods.createToken = function (message: string, res: Response, expir
 
     const cookieOptions: any = {
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-        httpOnly: true
+        httpOnly: true,
+        sameSite: 'none'
     }
     this.password = undefined
     this.__v = undefined
-    if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
-    res.cookie('jwt', token, cookieOptions)
+    if (process.env.NODE_ENV === 'production')
+        cookieOptions.secure = true
+    res.cookie('jwt', token, {})
 
     const sendObject = {
         status: 'Success',
