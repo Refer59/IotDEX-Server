@@ -145,7 +145,7 @@ userSchema.methods.createToken = function (message: string, res: Response, expir
     res.status(200).json({
         ...sendObject,
         user: this,
-        //token
+        token
     })
 }
 

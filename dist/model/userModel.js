@@ -108,7 +108,7 @@ userSchema.methods.createToken = function (message, res, expiresIn) {
     res.status(200).json({
         ...sendObject,
         user: this,
-        //token
+        token
     });
 };
 userSchema.methods.createCreationToken = function () {
