@@ -50,8 +50,12 @@ app.use(hpp({
 }))
 
 app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'https://iotdex.herokuapp.com'
+    ],
     credentials: true,
-    origin: 'http://localhost:3000'
+    exposedHeaders: ["set-cookie"],
 }))
 app.options('*', cors())
 app.use('/api/v1/tours', toursRouter())
