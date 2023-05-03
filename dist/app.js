@@ -48,7 +48,7 @@ app.use(cors({
     credentials: true,
     origin: [
         'http://localhost:3000',
-        'https://iotdex-web.web.app/',
+        'https://iotdex-web.web.app',
     ]
 }));
 app.options('*', cors());
