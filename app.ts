@@ -57,6 +57,7 @@ app.use(cors({
     credentials: true,
     exposedHeaders: ["set-cookie"],
 }))
+app.set('trust proxy', 1)
 app.options('*', cors())
 app.use('/api/v1/tours', toursRouter())
 app.use('/api/v1/users', usersRouter())
