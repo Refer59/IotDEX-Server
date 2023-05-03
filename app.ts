@@ -14,6 +14,7 @@ import toursRouter from './routes/tours.js'
 import brokerRouter from './routes/broker.js'
 import medicionesRouter from './routes/medicion.js'
 import devicesRouter from './routes/devices.js'
+import session from 'express-session'
 
 const app = express()
 //Security HTTP Headers
@@ -57,6 +58,14 @@ app.use(cors({
     credentials: true,
     exposedHeaders: ["set-cookie"],
 }))
+app.use(
+    session({
+        secret: process.env.JWT_SECRET,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: true, sameSite: "none", maxAge: 24 * 60 * 60 * 1000 },
+    })
+);
 app.set('trust proxy', 1)
 app.options('*', cors())
 app.use('/api/v1/tours', toursRouter())
