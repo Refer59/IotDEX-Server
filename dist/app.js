@@ -48,7 +48,8 @@ app.use(hpp({
 app.use(cors({
     origin: [
         'http://localhost:3000',
-        'https://iotdex.herokuapp.com'
+        'https://iotdex.herokuapp.com',
+        'https://iotdex-web.web.app'
     ],
     credentials: true,
     exposedHeaders: ["set-cookie"],
