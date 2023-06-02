@@ -20,7 +20,7 @@ const usersRouter = () => {
    usersRouter.post('/signIn', signIn)
    usersRouter.get('/checkUserConfirmation/:candidatePassword', protectRoute([]), actionPasswordConfirmation)
    usersRouter.get('/getAuthDataByToken', protectRoute([]), getAuthDataByAuth)
-   usersRouter.get('/signOut', protectRoute([]), signOut)
+   usersRouter.get('/signOut', signOut)
 
    //Contraseña olvidada
    usersRouter.post('/forgotPassword', forgotPassword)
