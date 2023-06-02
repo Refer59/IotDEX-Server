@@ -42,6 +42,7 @@ export const createUser = catchAsync(async (req, res) => {
     }
     catch (error) {
         await newUser.delete();
+        console.log(error);
         res.status(500).json({
             status: 'Error',
             message: `Creación de cuenta cancelada, no se pudo enviar el correo de confirmación a ${req.body.email}`

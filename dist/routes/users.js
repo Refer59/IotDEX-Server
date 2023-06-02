@@ -4,8 +4,6 @@ import userController, { createUser, deleteAuthUser, deleteUser, getAllUsers, up
 const usersRouter = () => {
     const { getUser } = userController();
     const usersRouter = express.Router();
-    //Deprecado
-    //usersRouter.post('/signUp', passwordConfirmation, signUp)
     /* 1) Checa si el param de la pagina password_creation de frontend tiene un token correcto
        2) Con el userID que obtuvo del endpoint de 1) + la password que haya tecleado el usuario activan la cuenta que les creo el admin
           para que ya la puedan usar
