@@ -27,7 +27,7 @@ const usersRouter = () => {
     //El usuario Elimina su propia cuenta
     usersRouter.delete('/deleteAuthUser', protectRoute([]), deleteAuthUser);
     usersRouter.route('')
-        .get(protectRoute(['ADMIN']), getAllUsers)
+        .get(/*protectRoute(['ADMIN']), */ getAllUsers)
         .post(protectRoute(['ADMIN']), createUser);
     usersRouter.route('/:id')
         .get(getUser)

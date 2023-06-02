@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema<userSchemaTypes>({
     role: {
         type: String,
         uppercase: true,
-        enum: ['INDEFINIDO', 'CONDUCTOR', 'MECANICO', 'ELECTRICO', 'ADMIN', 'SUPER-ADMIN'],
+        enum: ['INDEFINIDO', 'CHOFER', 'MECANICO', 'ELECTRICO', 'ADMINISTRADOR', 'SUPER-ADMIN'],
         default: 'INDEFINIDO'
     },
     workingDays: {

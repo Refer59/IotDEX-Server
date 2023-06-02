@@ -32,7 +32,6 @@ const server = app.listen(port, () => {
         })
 })
 
-
 //Maneja reject asyncros no manejados
 process.on('unhandledRejection', (err: Error) => {
     console.error(err.name, err.message)

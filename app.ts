@@ -15,6 +15,7 @@ import brokerRouter from './routes/broker.js'
 import medicionesRouter from './routes/medicion.js'
 import devicesRouter from './routes/devices.js'
 import sensoresRouter from './routes/sensores.js'
+import RutasRouter from './routes/Rutas.js'
 
 const app = express()
 //Security HTTP Headers
@@ -76,6 +77,7 @@ app.use('/api/v1/broker', brokerRouter())
 app.use('/api/v1/mediciones', medicionesRouter())
 app.use('/api/v1/sensores', sensoresRouter())
 app.use('/api/v1/devices', devicesRouter())
+app.use('/api/v1/ruta', RutasRouter())
 
 //Error handler para ruta no definidas
 app.all('*', (req, res, next) => {
