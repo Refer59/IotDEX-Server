@@ -40,6 +40,7 @@ export const createUser = catchAsync(async (req: Request, res: Response) => {
     try {
         //Se crean ambos tokens y se pasa el token no encriptado al link de confirmacion de creacion
         const creationToken = newUser.createCreationToken()
+
         const webUrl = 'localhost:3000'
         const url = `${req.protocol}://${webUrl}/password_creation/${creationToken}`
         await new Email(newUser, url).sendWelcome()
