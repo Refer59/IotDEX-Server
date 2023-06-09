@@ -6,9 +6,6 @@ const sensoresRouter = () => {
 
     sensoresRouter.get('/getSensorModelBySensorID', getSensorModelBySensorID)
 
-    //sensoresRouter.route('')
-    //    .get(getAllMediciones)
-
     return sensoresRouter
 }
 

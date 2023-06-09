@@ -1,6 +1,6 @@
 import express from "express"
 import {
-   passwordConfirmation, signUp, signIn, forgotPassword,
+   passwordConfirmation, signIn, forgotPassword,
    resetPassword, protectRoute, updatePassword, signUpConfirmation, getAuthDataByAuth, checkUserCreationToken, checkUserResetToken, signOut, actionPasswordConfirmation
 } from "../controllers/auth.js"
 import userController, { createUser, deleteAuthUser, deleteUser, getAllUsers, updateAuthUserPassword, updateUser } from "../controllers/users.js"
@@ -35,7 +35,7 @@ const usersRouter = () => {
    usersRouter.delete('/deleteAuthUser', protectRoute([]), deleteAuthUser)
 
    usersRouter.route('')
-      .get(/*protectRoute(['ADMIN']), */getAllUsers)
+      .get(protectRoute(['ADMIN']), getAllUsers)
       .post(protectRoute(['ADMIN']), createUser)
 
    usersRouter.route('/:id')

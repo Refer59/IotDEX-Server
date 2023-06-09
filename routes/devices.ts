@@ -10,7 +10,6 @@ const devicesRouter = () => {
         .post(protectRoute(['ADMIN']), createDevice)
 
     devicesRouter.route('/:id')
-        /*.get(getDevice)*/
         .patch(protectRoute(['ADMIN']), updateDevice)
         .delete(protectRoute(['ADMIN']), deleteDevice)
 
